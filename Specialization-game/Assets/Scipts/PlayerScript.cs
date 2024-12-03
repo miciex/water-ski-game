@@ -3,7 +3,9 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     Rigidbody rb;
-    WaterFloat waterFloat;
+    WaterFloat waterFloat; 
+    public float rotationSpeed = 100;
+    public float jumpForce = 10;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,7 +22,18 @@ public class PlayerScript : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space) && waterFloat.isFloating())
         {
-            rb.AddForce(Vector3.up * 10, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+        if(Input.GetKey(KeyCode.RightArrow) && !waterFloat.isFloating())
+        {
+            //rotate the player
+            transform.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
+        }
+        if(Input.GetKey(KeyCode.LeftArrow) && !waterFloat.isFloating())
+        {
+            //rotate the player left with quaternion
+            transform.Rotate(Vector3.left, rotationSpeed * Time.deltaTime);
+
         }
     }
 }
